@@ -14,7 +14,8 @@ module.exports = {
   publicPath, // 根据你的实际情况更改这里
   lintOnSave: true,
   devServer: {
-    publicPath // 和 publicPath 保持一致
+    // publicPath // 和 publicPath 保持一致
+    proxy: 'http://localhost:8090'
   },
   css: {
     loaderOptions: {
