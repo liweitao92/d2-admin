@@ -81,11 +81,7 @@ export default {
      * 查询用户列表
      */
     list () {
-      console.log(this.search)
       this.loading = true
-      this.$notify({
-        title: '开始请求模拟表格数据'
-      })
       getUserPager({
         ...this.search,
         pageIndex: this.page.pageIndex - 1,
@@ -94,9 +90,6 @@ export default {
         .then(res => {
           const result = res.result
           this.loading = false
-          this.$notify({
-            title: '模拟表格数据请求完毕'
-          })
           this.table = result.data
           this.page.pageTotal = result.total
         })

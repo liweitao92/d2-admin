@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     submit () {
-      create(this.formData).then(res => {
+      createUser(this.formData).then(res => {
         this.$emit('input', false)
         this.$emit('submit', res.result)
       })

@@ -16,10 +16,11 @@ export function getUserPager (params) {
  * 创建用户
  * @param data
  */
-export function create (data) {
+export function createUser (data) {
   return request({
     url: '/user',
     method: 'post',
     data
   })
 }
+
