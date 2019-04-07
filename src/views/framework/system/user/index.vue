@@ -1,16 +1,16 @@
 <template>
   <d2-container :filename="filename">
-    <demo-page-header
+    <user-page-header
             slot="header"
             @submit="handleSubmit"
             ref="header"/>
-    <demo-page-main
+    <user-page-main
             ref="main"
             :table-data="table"
             :loading="loading"
             @add="add"
     />
-    <demo-page-footer
+    <user-page-footer
             slot="footer"
             :page-index="page.pageIndex"
             :page-size="page.pageSize"
@@ -26,9 +26,9 @@ export default {
   // name 值和本页的 $route.name 一致才可以缓存页面
   name: 'user',
   components: {
-    'DemoPageHeader': () => import('./componnets/PageHeader'),
-    'DemoPageMain': () => import('./componnets/PageMain'),
-    'DemoPageFooter': () => import('./componnets/PageFooter'),
+    'UserPageHeader': () => import('./componnets/PageHeader'),
+    'UserPageMain': () => import('./componnets/PageMain'),
+    'UserPageFooter': () => import('./componnets/PageFooter'),
     'UserAdd': () => import('./componnets/PageUserAdd')
   },
   data () {
@@ -43,7 +43,7 @@ export default {
       },
       showDialog: false,
       // 搜索参数
-      search: {}
+      search: []
     }
   },
   mounted: function () {
@@ -81,13 +81,13 @@ export default {
      * 查询用户列表
      */
     list () {
+      console.log(this.search)
       this.loading = true
       this.$notify({
         title: '开始请求模拟表格数据'
       })
       getUserPager({
-        // ...this.search,
-        // ...this.page
+        ...this.search,
         pageIndex: this.page.pageIndex - 1,
         pageSize: this.page.pageSize
       })

@@ -3,7 +3,6 @@
         <el-dialog
                 title="新增用户"
                 :visible.sync="show"
-                :width="'80%'"
         >
             <el-form ref="form" :model="formData" label-width="80px" size="mini">
                 <el-row :gutter="20">
