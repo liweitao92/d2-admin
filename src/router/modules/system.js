@@ -8,7 +8,9 @@ const meta = { auth: true }
 export default {
   path: '/system',
   name: 'system',
-  meta,
+  meta: {
+    auth: true
+  },
   redirect: { name: 'system-index' },
   component: layoutHeaderAside,
   children: (pre => [

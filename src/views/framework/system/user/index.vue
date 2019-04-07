@@ -12,9 +12,9 @@
     />
     <demo-page-footer
             slot="footer"
-            :current="page.pageCurrent"
-            :size="page.pageSize"
-            :total="page.pageTotal"
+            :page-index="page.pageIndex"
+            :page-size="page.pageSize"
+            :page-total="page.pageTotal"
             @change="handlePaginationChange"/>
     <user-add v-model="showDialog" @submit="handleAddSubmit"></user-add>
   </d2-container>
@@ -37,7 +37,7 @@ export default {
       table: [],
       loading: false,
       page: {
-        pageCurrent: 1,
+        pageIndex: 1,
         pageSize: 10,
         pageTotal: 0
       },
@@ -51,10 +51,6 @@ export default {
   },
   methods: {
     handlePaginationChange (val) {
-      this.$notify({
-        title: '分页变化',
-        message: `当前第${val.current}页 共${val.total}条 每页${val.size}条`
-      })
       this.page = val
       // nextTick 只是为了优化示例中 notify 的显示
       this.$nextTick(() => {
@@ -85,14 +81,15 @@ export default {
      * 查询用户列表
      */
     list () {
-      console.log(this.search)
       this.loading = true
       this.$notify({
         title: '开始请求模拟表格数据'
       })
       getUserPager({
-        ...this.search,
-        ...this.page
+        // ...this.search,
+        // ...this.page
+        pageIndex: this.page.pageIndex - 1,
+        pageSize: this.page.pageSize
       })
         .then(res => {
           const result = res.result
