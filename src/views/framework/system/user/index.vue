@@ -9,6 +9,7 @@
             :table-data="table"
             :loading="loading"
             @add="add"
+            @edit="edit"
     />
     <user-page-footer
             slot="footer"
@@ -16,7 +17,8 @@
             :page-size="page.pageSize"
             :page-total="page.pageTotal"
             @change="handlePaginationChange"/>
-    <user-add v-model="showDialog" @submit="handleAddSubmit"></user-add>
+    <user-add v-model="addDialog" @submit="handleAddSubmit"></user-add>
+    <user-edit v-model="editDialog" :data="data" @submit="handleAddSubmit"></user-edit>
   </d2-container>
 </template>
 
@@ -29,7 +31,8 @@ export default {
     'UserPageHeader': () => import('./componnets/PageHeader'),
     'UserPageMain': () => import('./componnets/PageMain'),
     'UserPageFooter': () => import('./componnets/PageFooter'),
-    'UserAdd': () => import('./componnets/PageUserAdd')
+    'UserAdd': () => import('./componnets/PageUserAdd'),
+    'UserEdit': () => import('./componnets/PageUserEdit')
   },
   data () {
     return {
@@ -41,9 +44,11 @@ export default {
         pageSize: 10,
         pageTotal: 0
       },
-      showDialog: false,
+      addDialog: false,
+      editDialog: false,
       // 搜索参数
-      search: []
+      search: [],
+      data: {}
     }
   },
   mounted: function () {
@@ -69,7 +74,14 @@ export default {
      * 新增用户弹出层
      */
     add () {
-      this.showDialog = true
+      this.addDialog = true
+    },
+    /**
+     * 修改用户弹出层
+     */
+    edit (row) {
+      this.data = row
+      this.editDialog = true
     },
     /**
      * 创建用户成功后的回掉
@@ -96,7 +108,7 @@ export default {
         .catch(err => {
           this.loading = false
           this.$notify({
-            title: '模拟表格数据请求异常'
+            title: '数据请求异常'
           })
           console.log('err', err)
         })

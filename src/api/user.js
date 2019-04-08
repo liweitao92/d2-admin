@@ -24,3 +24,14 @@ export function createUser (data) {
   })
 }
 
+/**
+ * 修改用户
+ * @param data
+ */
+export function updateUser (data) {
+  return request({
+    url: `/user/${data.id}`,
+    method: 'put',
+    data
+  })
+}

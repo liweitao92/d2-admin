@@ -1,5 +1,5 @@
 {
-  "name": "Abbot快速开发平台",
+  "name": "abbot-framework",
   "version": "1.6.18",
   "private": true,
   "scripts": {

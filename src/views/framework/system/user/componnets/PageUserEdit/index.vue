@@ -1,24 +1,24 @@
 <template>
     <div>
         <el-dialog
-                title="新增用户"
+                title="修改用户"
                 :visible.sync="show"
         >
-            <el-form ref="form" :model="formData" label-width="80px" size="mini">
+            <el-form ref="form" :model="data" label-width="80px" size="mini">
                 <el-row :gutter="20">
                     <el-col :xs="24">
                         <el-form-item label="姓名">
-                            <el-input v-model="formData.name"></el-input>
+                            <el-input v-model="data.name"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24">
                         <el-form-item label="用户名">
-                            <el-input v-model="formData.username"></el-input>
+                            <el-input v-model="data.username"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24">
                         <el-form-item label="密码">
-                            <el-input v-model="formData.password"></el-input>
+                            <el-input v-model="data.password"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -31,13 +31,17 @@
     </div>
 </template>
 <script>
-import { createUser } from '@api/user'
+import { updateUser } from '@api/user'
 export default {
-  name: 'UserAdd',
+  name: 'UserEdit',
   props: {
     value: {
       type: Boolean,
       default: false
+    },
+    data: {
+      type: Object,
+      default: () => {}
     }
   },
   computed: {
@@ -50,16 +54,9 @@ export default {
       }
     }
   },
-  data () {
-    return {
-      formData: {
-
-      }
-    }
-  },
   methods: {
     submit () {
-      createUser(this.formData).then(res => {
+      updateUser(this.data).then(res => {
         this.$emit('input', false)
         this.$emit('submit', res.result)
       })

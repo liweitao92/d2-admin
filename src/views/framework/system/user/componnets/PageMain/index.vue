@@ -77,7 +77,7 @@
               label="操作"
               width="120">
         <template slot-scope="scope">
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small" @click="edit(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -115,14 +115,6 @@ export default {
     }
   },
   methods: {
-    handleSwitchChange (val, index) {
-      const oldValue = this.currentTableData[index]
-      this.$set(this.currentTableData, index, {
-        ...oldValue,
-        type: val
-      })
-      // 注意 这里并没有把修改后的数据传递出去 如果需要的话请自行修改
-    },
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
@@ -153,8 +145,18 @@ export default {
           this.$message('导出CSV成功')
         })
     },
+    /**
+     * 新增用户
+     */
     add () {
       this.$emit('add')
+    },
+    /**
+     * 修改用户
+     * @param row 修改的行信息
+     */
+    edit (row) {
+      this.$emit('edit', row)
     }
   }
 }
