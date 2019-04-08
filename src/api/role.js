@@ -13,6 +13,30 @@ export function getRolePager (params) {
 }
 
 /**
+ * 创建角色
+ * @param data
+ */
+export function createRole (data) {
+  return request({
+    url: '/role',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 修改角色
+ * @param data
+ */
+export function updateRole (data) {
+  return request({
+    url: `/role/${data.id}`,
+    method: 'put',
+    data
+  })
+}
+
+/**
  * 删除角色
  * @param id
  */

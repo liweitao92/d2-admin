@@ -1,24 +1,19 @@
 <template>
     <div>
         <el-dialog
-                title="新增用户"
+                title="新增角色"
                 :visible.sync="show"
         >
             <el-form ref="form" :model="formData" label-width="80px" size="mini">
                 <el-row :gutter="20">
                     <el-col :xs="24">
-                        <el-form-item label="姓名">
+                        <el-form-item label="名称">
                             <el-input v-model="formData.name"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24">
-                        <el-form-item label="用户名">
-                            <el-input v-model="formData.username"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :xs="24">
-                        <el-form-item label="密码">
-                            <el-input v-model="formData.password"></el-input>
+                        <el-form-item label="描述">
+                            <el-input v-model="formData.describe"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -31,7 +26,7 @@
     </div>
 </template>
 <script>
-import { createUser } from '@api/user'
+import { createRole } from '@api/role'
 export default {
   name: 'RoleAdd',
   props: {
@@ -59,7 +54,7 @@ export default {
   },
   methods: {
     submit () {
-      createUser(this.formData).then(res => {
+      createRole(this.formData).then(res => {
         this.$emit('input', false)
         this.$emit('submit', res.result)
       })

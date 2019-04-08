@@ -91,6 +91,7 @@ export default {
       deleteRole(row.id)
         .then(res => {
           alert('删除成功')
+          this.list()
         })
     },
     /**
