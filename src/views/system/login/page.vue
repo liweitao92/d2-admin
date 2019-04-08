@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="page-login">
     <div class="page-login--layer page-login--layer-area">
       <ul class="circles">
