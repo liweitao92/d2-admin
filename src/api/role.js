@@ -13,6 +13,17 @@ export function getRolePager (params) {
 }
 
 /**
+ * 查询所有的角色列表
+ * @returns {never}
+ */
+export function getRoleList () {
+  return request({
+    url: '/role/no-paging',
+    method: 'get'
+  })
+}
+
+/**
  * 创建角色
  * @param data
  */

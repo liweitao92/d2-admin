@@ -3,6 +3,7 @@
         <el-dialog
                 title="新增用户"
                 :visible.sync="show"
+                @open="open"
         >
             <el-form ref="form" :model="formData" label-width="80px" size="mini">
                 <el-row :gutter="20">
@@ -21,6 +22,16 @@
                             <el-input v-model="formData.password"></el-input>
                         </el-form-item>
                     </el-col>
+                    <el-col :xs="24">
+                        <el-form-item label="角色">
+                            <el-transfer
+                                    filterable
+                                    filter-placeholder="请输入角色"
+                                    v-model="formData.roles"
+                                    :data="roles">
+                            </el-transfer>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
             </el-form>
         <div slot="footer" class="dialog-footer">
@@ -32,6 +43,7 @@
 </template>
 <script>
 import { createUser } from '@api/user'
+import { getRoleList } from '@api/role'
 export default {
   name: 'UserAdd',
   props: {
@@ -52,9 +64,8 @@ export default {
   },
   data () {
     return {
-      formData: {
-
-      }
+      formData: {},
+      roles: []
     }
   },
   methods: {
@@ -63,6 +74,24 @@ export default {
         this.$emit('input', false)
         this.$emit('submit', res.result)
       })
+    },
+    /**
+     * 打开弹出层的方法，可在此做数据初始化动作
+     */
+    open () {
+      // 初始化
+      this.roles = []
+
+      getRoleList()
+        .then(res => {
+          const result = res.result
+          result.forEach((data, index) => {
+            this.roles.push({
+              key: data.id,
+              label: data.describe
+            })
+          })
+        })
     }
   }
 }

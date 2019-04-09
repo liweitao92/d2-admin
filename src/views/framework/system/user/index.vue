@@ -18,7 +18,7 @@
             :page-total="page.pageTotal"
             @change="handlePaginationChange"/>
     <user-add v-model="addDialog" @submit="handleAddSubmit"></user-add>
-    <user-edit v-model="editDialog" :data="data" @submit="handleAddSubmit"></user-edit>
+    <user-edit v-model="editDialog" :id="id" @submit="handleAddSubmit"></user-edit>
   </d2-container>
 </template>
 
@@ -48,7 +48,7 @@ export default {
       editDialog: false,
       // 搜索参数
       search: [],
-      data: {}
+      id: ''
     }
   },
   mounted: function () {
@@ -80,7 +80,7 @@ export default {
      * 修改用户弹出层
      */
     edit (row) {
-      this.data = row
+      this.id = row.id
       this.editDialog = true
     },
     /**

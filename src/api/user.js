@@ -13,6 +13,18 @@ export function getUserPager (params) {
 }
 
 /**
+ * 根据 ID 获取用户
+ * @param id
+ * @returns {never}
+ */
+export function getUser (id) {
+  return request({
+    url: `/user/${id}`,
+    method: 'get'
+  })
+}
+
+/**
  * 创建用户
  * @param data
  */
