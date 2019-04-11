@@ -8,7 +8,13 @@
             <el-form ref="form" :model="formData" label-width="80px" size="mini">
                 <el-tabs v-model="activeName">
                     <el-tab-pane label="菜单管理" name="first">
-                        <el-tree ref="tree" :data="data" :props="defaultProps" show-checkbox></el-tree>
+                        <el-tree ref="tree"
+                             node-key="id"
+                             :data="data"
+                             :props="defaultProps"
+                             show-checkbox
+                             :default-checked-keys="['55c87b185b150570d7b3fda92e6abd98', '43de394fbb59c07cfbc6c5ff0905ea6a']"
+                        ></el-tree>
                     </el-tab-pane>
                     <el-tab-pane label="权限管理" name="second">配置管理</el-tab-pane>
                 </el-tabs>
@@ -53,7 +59,8 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'name'
-      }
+      },
+      selected: []
     }
   },
   methods: {
@@ -61,12 +68,10 @@ export default {
       const treeList = this.$refs.tree.getCheckedNodes()
       let treeData = []
       treeList.forEach((tree) => {
-        console.log(tree)
         treeData.push({
           menuId: tree.id
         })
       })
-      console.log(treeList)
       const data = {
         type: 'role',
         settingFor: this.id,
@@ -91,8 +96,12 @@ export default {
        */
       getAuthSetting({ type: 'role', id: this.id })
         .then(res => {
-          console.log(res)
-          alert(1)
+          const result = res.result
+          let sd = []
+          result.menus.forEach((rs) => {
+            sd.push(rs.menuId)
+          })
+          this.selected = sd
         })
     }
   }
