@@ -19,7 +19,7 @@ export function getAuthSetting (params) {
 export function createAuthSetting (data) {
   return request({
     url: `/autz-setting/`,
-    method: 'post',
+    method: 'patch',
     data
   })
 }

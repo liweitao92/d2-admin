@@ -13,7 +13,7 @@
                              :data="data"
                              :props="defaultProps"
                              show-checkbox
-                             :default-checked-keys="['55c87b185b150570d7b3fda92e6abd98', '43de394fbb59c07cfbc6c5ff0905ea6a']"
+                             :default-checked-keys="selected"
                         ></el-tree>
                     </el-tab-pane>
                     <el-tab-pane label="权限管理" name="second">配置管理</el-tab-pane>
