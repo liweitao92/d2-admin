@@ -23,6 +23,11 @@ export default {
       title: '菜单管理',
       icon: 'github',
       path: `${pre}menu`
+    },
+    {
+      title: '权限管理',
+      icon: 'github',
+      path: `${pre}permission`
     }
   ])('/system/')
 }

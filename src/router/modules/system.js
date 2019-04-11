@@ -49,6 +49,15 @@ export default {
         ...meta,
         title: '角色管理'
       }
+    },
+    {
+      path: 'permission',
+      name: `${pre}permission`,
+      component: _import('framework/system/permission'),
+      meta: {
+        ...meta,
+        title: '权限管理'
+      }
     }
   ])('system-')
 }

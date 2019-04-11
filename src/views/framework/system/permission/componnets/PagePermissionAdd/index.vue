@@ -1,11 +1,11 @@
 <template>
     <div>
         <el-dialog
-            title="修改用户"
-            :visible.sync="show"
-            @open="open"
+                title="新增用户"
+                :visible.sync="show"
+                @open="open"
         >
-            <el-form ref="form" :model="formData" label-width="80px" size="mini" v-loading="loading">
+            <el-form ref="form" :model="formData" label-width="80px" size="mini">
                 <el-row :gutter="20">
                     <el-col :xs="24">
                         <el-form-item label="姓名">
@@ -25,7 +25,6 @@
                     <el-col :xs="24">
                         <el-form-item label="角色">
                             <el-transfer
-                                    :titles="['选择角色','已选角色']"
                                     filterable
                                     filter-placeholder="请输入角色"
                                     v-model="formData.roles"
@@ -43,18 +42,14 @@
     </div>
 </template>
 <script>
-import { updateUser, getUser } from '@api/user'
+import { createUser } from '@api/user'
 import { getRoleList } from '@api/role'
 export default {
-  name: 'UserEdit',
+  name: 'PermissionAdd',
   props: {
     value: {
       type: Boolean,
       default: false
-    },
-    id: {
-      type: String,
-      default: ''
     }
   },
   computed: {
@@ -69,17 +64,13 @@ export default {
   },
   data () {
     return {
-      roles: [],
       formData: {},
-      loading: false
+      roles: []
     }
   },
   methods: {
-    /**
-     * 提交表单
-     */
     submit () {
-      updateUser(this.formData).then(res => {
+      createUser(this.formData).then(res => {
         this.$emit('input', false)
         this.$emit('submit', res.result)
       })
@@ -90,11 +81,7 @@ export default {
     open () {
       // 初始化
       this.roles = []
-      this.loading = true
 
-      /**
-       * 获取角色列表
-       */
       getRoleList()
         .then(res => {
           const result = res.result
@@ -104,15 +91,6 @@ export default {
               label: data.describe
             })
           })
-        })
-
-      /**
-       * 根据 ID 获取用户信息
-       */
-      getUser(this.id)
-        .then(res => {
-          this.formData = res.result
-          this.loading = false
         })
     }
   }

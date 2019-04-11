@@ -1,42 +1,38 @@
 <template>
   <d2-container :filename="filename">
-    <role-page-header
+    <permission-page-header
             slot="header"
             @submit="handleSubmit"
             ref="header"/>
-    <role-page-main
+    <permission-page-main
             ref="main"
             :table-data="table"
             :loading="loading"
             @add="add"
             @edit="edit"
-            @del="del"
-            @grand="grand"
     />
-    <role-page-footer
+    <permission-page-footer
             slot="footer"
             :page-index="page.pageIndex"
             :page-size="page.pageSize"
             :page-total="page.pageTotal"
             @change="handlePaginationChange"/>
-    <role-add v-model="addDialog" @submit="handleAddSubmit"></role-add>
-    <role-edit v-model="editDialog" :data="data" @submit="handleAddSubmit"></role-edit>
-    <role-grand v-model="grandDialog" :id="id"></role-grand>
+    <permission-add v-model="addDialog" @submit="handleAddSubmit"></permission-add>
+    <permission-edit v-model="editDialog" :id="id" @submit="handleAddSubmit"></permission-edit>
   </d2-container>
 </template>
 
 <script>
-import { getRolePager, deleteRole } from '@api/role'
+import { getPermissionPager } from '@api/permission'
 export default {
   // name 值和本页的 $route.name 一致才可以缓存页面
-  name: 'role',
+  name: 'user',
   components: {
-    'RolePageHeader': () => import('./componnets/PageHeader'),
-    'RolePageMain': () => import('./componnets/PageMain'),
-    'RolePageFooter': () => import('./componnets/PageFooter'),
-    'RoleAdd': () => import('./componnets/PageRoleAdd'),
-    'RoleEdit': () => import('./componnets/PageRoleEdit'),
-    'RoleGrand': () => import('./componnets/PageGrand')
+    'PermissionPageHeader': () => import('./componnets/PageHeader'),
+    'PermissionPageMain': () => import('./componnets/PageMain'),
+    'PermissionPageFooter': () => import('./componnets/PageFooter'),
+    'PermissionAdd': () => import('./componnets/PagePermissionAdd'),
+    'PermissionEdit': () => import('./componnets/PagePermissionEdit')
   },
   data () {
     return {
@@ -50,10 +46,8 @@ export default {
       },
       addDialog: false,
       editDialog: false,
-      grandDialog: false,
       // 搜索参数
       search: [],
-      data: {},
       id: ''
     }
   },
@@ -77,47 +71,30 @@ export default {
       this.list()
     },
     /**
-     * 新增
+     * 新增用户弹出层
      */
     add () {
       this.addDialog = true
     },
     /**
-     * 修改
+     * 修改用户弹出层
      */
     edit (row) {
-      this.data = row
+      this.id = row.id
       this.editDialog = true
     },
     /**
-     * 赋权
-     */
-    grand (row) {
-      this.id = row.id
-      this.grandDialog = true
-    },
-    /**
-     * 删除
-     */
-    del (row) {
-      deleteRole(row.id)
-        .then(res => {
-          alert('删除成功')
-          this.list()
-        })
-    },
-    /**
-     * 创建成功后的回掉
+     * 创建用户成功后的回掉
      */
     handleAddSubmit () {
       this.list()
     },
     /**
-     * 查询角色列表
+     * 查询用户列表
      */
     list () {
       this.loading = true
-      getRolePager({
+      getPermissionPager({
         ...this.search,
         pageIndex: this.page.pageIndex - 1,
         pageSize: this.page.pageSize

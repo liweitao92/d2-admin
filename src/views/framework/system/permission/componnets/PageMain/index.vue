@@ -66,19 +66,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="是否启用" align="center">
+      <el-table-column label="状态" align="center">
         <template slot-scope="scope">
-          <el-tag
-                  size="mini"
-                  :type="scope.row.status===1 ? 'info' : ''">
-            {{scope.row.status===1 ? '已启用' : '未启用'}}
-          </el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="备注" align="center">
-        <template slot-scope="scope">
-          {{scope.row.describe}}
+          {{scope.row.states}}
         </template>
       </el-table-column>
 
@@ -88,8 +78,6 @@
               width="120">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="edit(scope.row)">编辑</el-button>
-          <el-button type="text" size="small" @click="grand(scope.row)">赋权</el-button>
-          <el-button type="text" size="small" @click="del(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -158,30 +146,17 @@ export default {
         })
     },
     /**
-     * 新增
+     * 新增用户
      */
     add () {
       this.$emit('add')
     },
     /**
-     * 修改
+     * 修改用户
      * @param row 修改的行信息
      */
     edit (row) {
       this.$emit('edit', row)
-    },
-    /**
-     * 赋权
-     */
-    grand (row) {
-      this.$emit('grand', row)
-    },
-    /**
-     * 删除
-     * @param row
-     */
-    del (row) {
-      this.$emit('del', row)
     }
   }
 }

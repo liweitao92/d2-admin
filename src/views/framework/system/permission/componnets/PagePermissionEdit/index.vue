@@ -46,7 +46,7 @@
 import { updateUser, getUser } from '@api/user'
 import { getRoleList } from '@api/role'
 export default {
-  name: 'UserEdit',
+  name: 'PermissionEdit',
   props: {
     value: {
       type: Boolean,
