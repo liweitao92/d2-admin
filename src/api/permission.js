@@ -24,3 +24,28 @@ export function createPermission (data) {
     data
   })
 }
+
+/**
+ * 修改权限信息
+ * @param data
+ * @returns {never}
+ */
+export function updatePermission (data) {
+  return request({
+    url: `/permission/${data.id}`,
+    method: 'put',
+    data
+  })
+}
+
+/**
+ * 根据 id 获取
+ * @param id
+ * @returns {never}
+ */
+export function getPermission (id) {
+  return request({
+    url: `/permission/${id}`,
+    method: 'get'
+  })
+}
