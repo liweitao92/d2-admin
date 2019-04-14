@@ -10,6 +10,7 @@
             :loading="loading"
             @add="add"
             @edit="edit"
+            @del="del"
     />
     <permission-page-footer
             slot="footer"
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import { getPermissionPager } from '@api/permission'
+import { getPermissionPager, deletePermission } from '@api/permission'
 export default {
   // name 值和本页的 $route.name 一致才可以缓存页面
   name: 'user',
@@ -71,17 +72,26 @@ export default {
       this.list()
     },
     /**
-     * 新增用户弹出层
+     * 新增
      */
     add () {
       this.addDialog = true
     },
     /**
-     * 修改用户弹出层
+     * 修改
      */
     edit (row) {
       this.id = row.id
       this.editDialog = true
+    },
+    /**
+     * 删除
+     */
+    del (row) {
+      deletePermission(row.id)
+        .then(res => {
+          alert('删除')
+        })
     },
     /**
      * 创建用户成功后的回掉

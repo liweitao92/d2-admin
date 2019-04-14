@@ -90,7 +90,7 @@
 <script>
 import { getPermission, updatePermission } from '@api/permission'
 export default {
-  name: 'PermissionAdd',
+  name: 'PermissionEdit',
   props: {
     value: {
       type: Boolean,

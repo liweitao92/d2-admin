@@ -39,6 +39,18 @@ export function updatePermission (data) {
 }
 
 /**
+ * 删除权限
+ * @param id
+ * @returns {never}
+ */
+export function deletePermission (id) {
+  return request({
+    url: `/permission/${id}`,
+    method: 'delete'
+  })
+}
+
+/**
  * 根据 id 获取
  * @param id
  * @returns {never}

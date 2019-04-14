@@ -78,6 +78,7 @@
               width="120">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="edit(scope.row)">编辑</el-button>
+          <el-button type="text" size="small" @click="del(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -146,17 +147,24 @@ export default {
         })
     },
     /**
-     * 新增用户
+     * 新增
      */
     add () {
       this.$emit('add')
     },
     /**
-     * 修改用户
+     * 修改
      * @param row 修改的行信息
      */
     edit (row) {
       this.$emit('edit', row)
+    },
+    /**
+     * 删除
+     * @param row
+     */
+    del (row) {
+      this.$emit('del', row)
     }
   }
 }
